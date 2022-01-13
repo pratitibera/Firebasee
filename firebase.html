@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FIREBASE</title>
+</head>
+<body>
+	Name <input type="text" id="namebox"><br><br>
+	Roll Number <input type="text" id="rollbox"><br><br>
+	Section <input type="text" id="sectionbox"><br><br>
+	Gender <input type="text" id="genderbox"><br><br>
+	<br>
+	<button id="insert">INSERT</button>
+	<button id="select">SELECT</button>
+	<button id="update">UPDATE</button>
+	<button id="delete">DELETE</button>
+
+
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script> 
+
+	<script id="MainScript">
+		var firebaseConfig = {
+	    apiKey: "AIzaSyA9ei-oc-5os-2Wgh2znm2O1gP9UC7HHVI",
+	    authDomain: "cogent-theater-287414.firebaseapp.com",
+	    projectId: "cogent-theater-287414",
+	    storageBucket: "cogent-theater-287414.appspot.com",
+	    messagingSenderId: "531014892213",
+	    appId: "1:531014892213:web:e4fe612a0d1579e83d9cfc"
+	    };
+	    // Initialize Firebase
+	    firebase.initializeApp(firebaseConfig);
+
+	    var nameV, rollV, secV, genV;
+	    function Ready() {
+	    	nameV = document.getElementById('namebox').value;
+	    	rollV = document.getElementById('rollbox').value;
+	    	secV = document.getElementById('sectionbox').value;
+	    	genV = document.getElementById('genderbox').value;
+	    }
+
+	    //Insertion
+	    document.getElementById('insert').onclick = function(){
+	    	Ready();
+	    	firebase.database().ref('student/'+rollV).set({
+	    		StudentName: nameV,
+	    		RollNo: rollV,
+	    		Section: secV,
+	    		Gender: genV
+	    	});
+	    	// location.reload();
+	    }
+
+	    //Selection
+	    document.getElementById('select').onclick = function(){
+	    	Ready();
+	    	firebase.database().ref('student/'+rollV).on('value', function(snapshot){
+	    		document.getElementById('namebox').value = snapshot.val().StudentName;
+	    		document.getElementById('sectionbox').value = snapshot.val().Section;
+	    		document.getElementById('genderbox').value = snapshot.val().Gender;
+	    	});
+	    }
+
+	    //Updating
+	    document.getElementById('update').onclick = function(){
+	    	Ready();
+	    	firebase.database().ref('student/'+rollV).update({
+	    		StudentName: nameV,
+	    		Section: secV,
+	    		Gender: genV
+	    	});
+	    }
+
+	    //Deleting
+	    document.getElementById('delete').onclick = function(){
+	    	Ready();
+	    	firebase.database().ref('student/'+rollV).remove();
+	    }
+	</script>
+
+</body>
+</html>

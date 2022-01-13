@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pratiti</title>
+</head>
+<body>
+	<ul id="list">
+		
+	</ul>
+
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script> 
+
+	<script id="MainScript">
+		var firebaseConfig = {
+	    apiKey: "AIzaSyA9ei-oc-5os-2Wgh2znm2O1gP9UC7HHVI",
+	    authDomain: "cogent-theater-287414.firebaseapp.com",
+	    projectId: "cogent-theater-287414",
+	    storageBucket: "cogent-theater-287414.appspot.com",
+	    messagingSenderId: "531014892213",
+	    appId: "1:531014892213:web:e4fe612a0d1579e83d9cfc"
+	    };
+	    // Initialize Firebase
+	    firebase.initializeApp(firebaseConfig);
+
+	    var studentlist = 0;
+	    function addItems(name,roll,sec,gen) {
+	    	var ul = document.getElementById('list');
+	    	var header = document.createElement('h2');
+	    	var _name = document.createElement('li');
+	    	var _roll = document.createElement('li');
+	    	var _sec = document.createElement('li');
+	    	var _gen = document.createElement('li');
+
+	    	header.append("Student- "+ (++studentlist));
+
+	    	_name.append("Name: "+ name);
+	    	_roll.append("Roll Number: "+ roll);
+	    	_sec.append("Section: "+ sec);
+	    	_gen.append("Gender: "+ gen);
+
+	    	ul.append(header);
+	    	ul.append(_name);
+	    	ul.append(_roll);
+	    	ul.append(_sec);
+	    	ul.append(_gen);
+	    }
+
+	    function fetchData(){
+	    	firebase.database().ref('student').once('value', function(snapshot){
+	    		snapshot.forEach(
+	    			function(ChildSnapshot){
+	    				let name = ChildSnapshot.val().StudentName;
+	    				let roll = ChildSnapshot.val().RollNo;
+	    				let sec = ChildSnapshot.val().Section;
+	    				let gen = ChildSnapshot.val().Gender;
+	    				addItems(name,roll,sec,gen);
+	    			})
+	    	}); 
+	    }
+
+	    window.onload(fetchData());
+	</script>
+
+
+</body>
+</html>

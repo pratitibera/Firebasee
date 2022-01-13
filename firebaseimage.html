@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Firebase Image</title>
+</head>
+<body>
+	Image Name <input type="text" id="namebox"><br><br>
+	<img id="myimg" style="height: 200px; width: 200px; border: 2px solid black;"><label id="progress"></label><br><br>
+
+	<button id="select">Select Image</button>
+	<button id="upload">Upload Image</button>
+	<button id="retrieve">Retrieve Image</button>
+
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script> 
+	<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-storage.js"></script> 
+
+	<script id="MainScript">
+		var ImgName, ImgUrl;
+		var files = [];
+		var reader = new FileReader();
+		var firebaseConfig = {
+	    apiKey: "AIzaSyA9ei-oc-5os-2Wgh2znm2O1gP9UC7HHVI",
+	    authDomain: "cogent-theater-287414.firebaseapp.com",
+	    projectId: "cogent-theater-287414",
+	    storageBucket: "cogent-theater-287414.appspot.com",
+	    messagingSenderId: "531014892213",
+	    appId: "1:531014892213:web:e4fe612a0d1579e83d9cfc"
+	    };
+	    // Initialize Firebase
+	    firebase.initializeApp(firebaseConfig);
+
+	</script>
+
+</body>
+</html>
